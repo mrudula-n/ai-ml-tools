@@ -1,0 +1,2789 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI/ML Scenarios & Tools Guide - Complete Toolkit Reference</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
+            color: #fff;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 3em;
+            margin-bottom: 20px;
+            background: linear-gradient(45deg, #00ff88, #00d4ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #a0a0a0;
+            margin-bottom: 40px;
+            font-size: 1.2em;
+        }
+
+        .scenario-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .scenario-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .scenario-card:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.08);
+            box-shadow: 0 10px 30px rgba(0, 255, 136, 0.2);
+        }
+
+        .scenario-card.active {
+            border-color: #00ff88;
+            background: rgba(0, 255, 136, 0.1);
+        }
+
+        .scenario-title {
+            font-size: 1.5em;
+            margin-bottom: 10px;
+            color: #00ff88;
+        }
+
+        .scenario-description {
+            color: #c0c0c0;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        .scenario-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .tag {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            color: #00d4ff;
+        }
+
+        .tools-section {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 30px;
+            margin-top: 30px;
+            display: none;
+        }
+
+        .tools-section.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .phase {
+            margin-bottom: 30px;
+            background: rgba(255, 255, 255, 0.02);
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 4px solid #00ff88;
+        }
+
+        .phase h3 {
+            color: #00ff88;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+        }
+
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+        
+        @media (max-width: 768px) {
+            .tools-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .scenario-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .tool {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.2s ease;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .tool:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: scale(1.02);
+        }
+
+        .tool-name {
+            font-weight: bold;
+            color: #00d4ff;
+            margin-bottom: 4px;
+            font-size: 1.1em;
+        }
+
+        .tool-purpose {
+            font-size: 0.85em;
+            color: #a0a0a0;
+            margin-bottom: 8px;
+        }
+
+        .tool-reason {
+            font-size: 0.8em;
+            color: #888;
+            font-style: italic;
+            display: none;
+            margin-top: 8px;
+            padding-top: 8px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .tool:hover .tool-reason {
+            display: block;
+        }
+
+        .expand-hint {
+            position: absolute;
+            top: 5px;
+            right: 8px;
+            font-size: 0.7em;
+            color: #666;
+            opacity: 0.7;
+            transition: opacity 0.3s ease;
+        }
+        
+        .tool:hover .expand-hint {
+            opacity: 0;
+        }
+
+        .timeline {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 30px;
+            position: relative;
+            padding: 20px 0;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: rgba(255, 255, 255, 0.2);
+            z-index: 0;
+        }
+
+        .timeline-step {
+            background: #302b63;
+            border: 2px solid #00ff88;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            z-index: 1;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .timeline-step:hover {
+            transform: scale(1.2);
+            background: #00ff88;
+            color: #000;
+        }
+
+        .close-btn {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            float: right;
+            transition: all 0.3s ease;
+        }
+
+        .close-btn:hover {
+            background: rgba(255, 0, 0, 0.2);
+            border-color: rgba(255, 0, 0, 0.4);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>AI/ML Scenarios & Tools Guide</h1>
+        <p class="subtitle">From traditional ML to modern AI agents - Click on a scenario to see the complete toolkit needed</p>
+        <div style="text-align: center; margin-bottom: 30px;">
+            <span style="color: #666; font-size: 0.9em;">
+                📊 Traditional ML (First 6) | 🤖 Modern AI Agents (Last 8) | Hover over tools to understand their role
+            </span>
+        </div>
+
+        <div class="scenario-grid">
+            <div class="scenario-card" data-scenario="chatbot">
+                <h2 class="scenario-title">🤖 Build a Customer Service Chatbot</h2>
+                <p class="scenario-description">Create an intelligent chatbot that can understand customer queries, provide accurate responses, and handle multi-turn conversations.</p>
+                <div class="scenario-tags">
+                    <span class="tag">NLP</span>
+                    <span class="tag">Production</span>
+                    <span class="tag">Real-time</span>
+                </div>
+            </div>
+
+            <div class="scenario-card" data-scenario="recommendation">
+                <h2 class="scenario-title">🎯 E-commerce Recommendation System</h2>
+                <p class="scenario-description">Build a personalized product recommendation engine that learns from user behavior and improves sales through targeted suggestions.</p>
+                <div class="scenario-tags">
+                    <span class="tag">ML</span>
+                    <span class="tag">Big Data</span>
+                    <span class="tag">A/B Testing</span>
+                </div>
+            </div>
+
+            <div class="scenario-card" data-scenario="vision">
+                <h2 class="scenario-title">📸 Medical Image Analysis</h2>
+                <p class="scenario-description">Develop a system to detect abnormalities in medical images (X-rays, MRIs) with high accuracy and provide explanations for diagnoses.</p>
+                <div class="scenario-tags">
+                    <span class="tag">Computer Vision</span>
+                    <span class="tag">Healthcare</span>
+                    <span class="tag">Interpretability</span>
+                </div>
+            </div>
+
+            <div class="scenario-card" data-scenario="forecast">
+                <h2 class="scenario-title">📈 Sales Forecasting Platform</h2>
+                <p class="scenario-description">Create a time series forecasting system that predicts future sales, handles seasonality, and provides confidence intervals.</p>
+                <div class="scenario-tags">
+                    <span class="tag">Time Series</span>
+                    <span class="tag">Business</span>
+                    <span class="tag">Dashboard</span>
+                </div>
+            </div>
+
+            <div class="scenario-card" data-scenario="fraud">
+                <h2 class="scenario-title">🔒 Real-time Fraud Detection</h2>
+                <p class="scenario-description">Build a system that detects fraudulent transactions in real-time, minimizes false positives, and adapts to new fraud patterns.</p>
+                <div class="scenario-tags">
+                    <span class="tag">Anomaly Detection</span>
+                    <span class="tag">Streaming</span>
+                    <span class="tag">FinTech</span>
+                </div>
+            </div>
+
+            <div class="scenario-card" data-scenario="sentiment">
+                <h2 class="scenario-title">💬 Social Media Sentiment Analysis</h2>
+                <p class="scenario-description">Analyze social media posts to understand public sentiment about brands, products, or topics, with multilingual support.</p>
+                <div class="scenario-tags">
+                    <span class="tag">NLP</span>
+                    <span class="tag">Analytics</span>
+                    <span class="tag">Monitoring</span>
+                </div>
+            </div>
+
+            <div class="scenario-card" data-scenario="rag-agent">
+                <h2 class="scenario-title">🧠 RAG-based Knowledge Assistant</h2>
+                <p class="scenario-description">Build an intelligent agent that can answer questions using your organization's documents, with source citations and continuous learning.</p>
+                <div class="scenario-tags">
+                    <span class="tag">LLM</span>
+                    <span class="tag">RAG</span>
+                    <span class="tag">Agents</span>
+                </div>
+            </div>
+
+            <div class="scenario-card" data-scenario="code-agent">
+                <h2 class="scenario-title">👨‍💻 Autonomous Coding Agent</h2>
+                <p class="scenario-description">Create an AI agent that can understand requirements, write code, debug, and even deploy applications with minimal human intervention.</p>
+                <div class="scenario-tags">
+                    <span class="tag">Code Generation</span>
+                    <span class="tag">Agents</span>
+                    <span class="tag">Automation</span>
+                </div>
+            </div>
+
+            <div class="scenario-card" data-scenario="multi-agent">
+                <h2 class="scenario-title">🤝 Multi-Agent Research System</h2>
+                <p class="scenario-description">Deploy multiple specialized agents that collaborate to conduct research, analyze data, and produce comprehensive reports.</p>
+                <div class="scenario-tags">
+                    <span class="tag">Multi-Agent</span>
+                    <span class="tag">Research</span>
+                    <span class="tag">Orchestration</span>
+                </div>
+            </div>
+
+            <div class="scenario-card" data-scenario="customer-agent">
+                <h2 class="scenario-title">🛍️ Autonomous Customer Success Agent</h2>
+                <p class="scenario-description">Build an agent that proactively handles customer inquiries, processes returns, schedules appointments, and integrates with business systems.</p>
+                <div class="scenario-tags">
+                    <span class="tag">Tool Use</span>
+                    <span class="tag">Integration</span>
+                    <span class="tag">Automation</span>
+                </div>
+            </div>
+
+            <div class="scenario-card" data-scenario="data-agent">
+                <h2 class="scenario-title">📊 Self-Serve Analytics Agent</h2>
+                <p class="scenario-description">Create an agent that understands natural language queries, writes SQL, generates visualizations, and provides data insights.</p>
+                <div class="scenario-tags">
+                    <span class="tag">Data Analysis</span>
+                    <span class="tag">NL2SQL</span>
+                    <span class="tag">Visualization</span>
+                </div>
+            </div>
+
+            <div class="scenario-card" data-scenario="game-agent">
+                <h2 class="scenario-title">🎮 Game-Playing RL Agent</h2>
+                <p class="scenario-description">Build reinforcement learning agents that can master complex games, from board games to real-time strategy, learning through self-play.</p>
+                <div class="scenario-tags">
+                    <span class="tag">Reinforcement Learning</span>
+                    <span class="tag">Self-Play</span>
+                    <span class="tag">Game AI</span>
+                </div>
+            </div>
+
+            <div class="scenario-card" data-scenario="creative-agent">
+                <h2 class="scenario-title">🎨 Creative Content Agent</h2>
+                <p class="scenario-description">Deploy an agent that generates creative content including art, music, stories, and marketing materials with brand consistency.</p>
+                <div class="scenario-tags">
+                    <span class="tag">Generative AI</span>
+                    <span class="tag">Multimodal</span>
+                    <span class="tag">Creative</span>
+                </div>
+            </div>
+
+            <div class="scenario-card" data-scenario="research-agent">
+                <h2 class="scenario-title">🔬 Scientific Research Agent</h2>
+                <p class="scenario-description">Create an agent that can read papers, design experiments, analyze results, and even suggest new research directions.</p>
+                <div class="scenario-tags">
+                    <span class="tag">Research</span>
+                    <span class="tag">Analysis</span>
+                    <span class="tag">Automation</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="learning-path-section">
+            <h2 style="text-align: center; color: #00ff88; margin: 40px 0 30px;">🎯 Recommended Learning Paths</h2>
+            
+            <div class="learning-paths">
+                <div class="path-card">
+                    <h3 class="path-title">🌱 Beginner Path</h3>
+                    <p class="path-description">Start with foundational ML projects before moving to agents</p>
+                    <div class="path-steps">
+                        <div class="path-step">
+                            <span class="step-number">1</span>
+                            <div class="step-content">
+                                <strong>Sentiment Analysis</strong>
+                                <p>Learn NLP basics, data preprocessing, and model deployment</p>
+                            </div>
+                        </div>
+                        <div class="path-step">
+                            <span class="step-number">2</span>
+                            <div class="step-content">
+                                <strong>Sales Forecasting</strong>
+                                <p>Master time series analysis and business metrics</p>
+                            </div>
+                        </div>
+                        <div class="path-step">
+                            <span class="step-number">3</span>
+                            <div class="step-content">
+                                <strong>Chatbot Development</strong>
+                                <p>Bridge to conversational AI and API integration</p>
+                            </div>
+                        </div>
+                        <div class="path-step">
+                            <span class="step-number">4</span>
+                            <div class="step-content">
+                                <strong>RAG Knowledge Assistant</strong>
+                                <p>Your first agent project with retrieval systems</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="path-card">
+                    <h3 class="path-title">🚀 Full-Stack ML Path</h3>
+                    <p class="path-description">Become proficient in end-to-end ML systems</p>
+                    <div class="path-steps">
+                        <div class="path-step">
+                            <span class="step-number">1</span>
+                            <div class="step-content">
+                                <strong>Recommendation System</strong>
+                                <p>Learn big data processing and A/B testing</p>
+                            </div>
+                        </div>
+                        <div class="path-step">
+                            <span class="step-number">2</span>
+                            <div class="step-content">
+                                <strong>Fraud Detection</strong>
+                                <p>Master real-time ML and streaming architectures</p>
+                            </div>
+                        </div>
+                        <div class="path-step">
+                            <span class="step-number">3</span>
+                            <div class="step-content">
+                                <strong>Medical Image Analysis</strong>
+                                <p>Deep dive into computer vision and compliance</p>
+                            </div>
+                        </div>
+                        <div class="path-step">
+                            <span class="step-number">4</span>
+                            <div class="step-content">
+                                <strong>Multi-Agent System</strong>
+                                <p>Advanced orchestration and distributed AI</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="path-card">
+                    <h3 class="path-title">🤖 Agent Developer Path</h3>
+                    <p class="path-description">Focus on modern AI agents and LLM applications</p>
+                    <div class="path-steps">
+                        <div class="path-step">
+                            <span class="step-number">1</span>
+                            <div class="step-content">
+                                <strong>RAG Knowledge Assistant</strong>
+                                <p>Foundation of retrieval-augmented generation</p>
+                            </div>
+                        </div>
+                        <div class="path-step">
+                            <span class="step-number">2</span>
+                            <div class="step-content">
+                                <strong>Data Analytics Agent</strong>
+                                <p>Natural language to insights with NL2SQL</p>
+                            </div>
+                        </div>
+                        <div class="path-step">
+                            <span class="step-number">3</span>
+                            <div class="step-content">
+                                <strong>Coding Agent</strong>
+                                <p>Autonomous code generation and testing</p>
+                            </div>
+                        </div>
+                        <div class="path-step">
+                            <span class="step-number">4</span>
+                            <div class="step-content">
+                                <strong>Multi-Agent Research</strong>
+                                <p>Coordinate teams of specialized agents</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="path-card">
+                    <h3 class="path-title">🎮 Specialized Paths</h3>
+                    <p class="path-description">Deep expertise in specific domains</p>
+                    <div class="path-tabs">
+                        <div class="path-tab">
+                            <strong>Gaming & RL:</strong> Game Agent → Multi-Agent Systems
+                        </div>
+                        <div class="path-tab">
+                            <strong>Creative AI:</strong> Creative Agent → Customer Success Agent
+                        </div>
+                        <div class="path-tab">
+                            <strong>Research:</strong> Scientific Agent → Multi-Agent Research
+                        </div>
+                        <div class="path-tab">
+                            <strong>Business:</strong> Analytics Agent → Customer Success Agent
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="learning-tips">
+                <h3 style="color: #00d4ff; margin-bottom: 15px;">💡 Learning Tips</h3>
+                <ul>
+                    <li><strong>Start Small:</strong> Master Python, Pandas, and Jupyter before diving into complex frameworks</li>
+                    <li><strong>Build Projects:</strong> Each scenario should result in a working prototype you can showcase</li>
+                    <li><strong>Join Communities:</strong> Engage with r/MachineLearning, Hugging Face forums, and local ML meetups</li>
+                    <li><strong>Stay Current:</strong> Follow papers on arXiv, subscribe to ML newsletters, and experiment with new tools</li>
+                    <li><strong>Document Everything:</strong> Keep detailed notes on what works and what doesn't for each tool</li>
+                </ul>
+            </div>
+        </div>
+
+        <div id="tools-display" class="tools-section">
+            <!-- Tools will be dynamically inserted here -->
+        </div>
+    </div>
+
+    <script>
+        const scenarios = {
+            chatbot: {
+                title: "Building a Customer Service Chatbot",
+                phases: [
+                    {
+                        name: "1. Data Collection & Preparation",
+                        tools: [
+                            { 
+                                name: "Python", 
+                                purpose: "Primary language",
+                                reason: "Python is the de facto standard for NLP with the richest ecosystem of libraries and community support"
+                            },
+                            { 
+                                name: "Pandas", 
+                                purpose: "Data manipulation",
+                                reason: "Essential for cleaning chat logs, handling CSV/JSON data, and preparing training datasets efficiently"
+                            },
+                            { 
+                                name: "Label Studio", 
+                                purpose: "Annotate conversations",
+                                reason: "Provides a user-friendly interface for annotating intents and entities in conversations, crucial for supervised learning"
+                            },
+                            { 
+                                name: "spaCy", 
+                                purpose: "Text preprocessing",
+                                reason: "Industrial-strength NLP library for tokenization, lemmatization, and entity recognition preprocessing"
+                            },
+                            { 
+                                name: "PostgreSQL", 
+                                purpose: "Store conversation data",
+                                reason: "Reliable relational database for storing structured conversation history and user interactions at scale"
+                            }
+                        ]
+                    },
+                    {
+                        name: "2. Model Development",
+                        tools: [
+                            { 
+                                name: "Hugging Face", 
+                                purpose: "Pre-trained models",
+                                reason: "Provides access to state-of-the-art language models like BERT and GPT, saving months of training time"
+                            },
+                            { 
+                                name: "PyTorch", 
+                                purpose: "Fine-tuning",
+                                reason: "Flexible deep learning framework preferred for research and custom model architectures"
+                            },
+                            { 
+                                name: "Transformers", 
+                                purpose: "BERT/GPT models",
+                                reason: "High-level API for transformer models, handling tokenization, model loading, and inference seamlessly"
+                            },
+                            { 
+                                name: "Jupyter", 
+                                purpose: "Experimentation",
+                                reason: "Interactive environment perfect for prototyping, visualizing results, and iterative development"
+                            },
+                            { 
+                                name: "Weights & Biases", 
+                                purpose: "Experiment tracking",
+                                reason: "Tracks hyperparameters, metrics, and model versions - essential for reproducible ML research"
+                            }
+                        ]
+                    },
+                    {
+                        name: "3. Training & Evaluation",
+                        tools: [
+                            { 
+                                name: "NLTK", 
+                                purpose: "Evaluation metrics",
+                                reason: "Provides BLEU, ROUGE scores for evaluating chatbot response quality and coherence"
+                            },
+                            { 
+                                name: "TensorBoard", 
+                                purpose: "Training visualization",
+                                reason: "Real-time visualization of loss curves, gradients, and model architecture during training"
+                            },
+                            { 
+                                name: "Optuna", 
+                                purpose: "Hyperparameter tuning",
+                                reason: "Automated hyperparameter optimization using Bayesian optimization, saving manual tuning time"
+                            },
+                            { 
+                                name: "MLflow", 
+                                purpose: "Model versioning",
+                                reason: "Manages model lifecycle, tracking versions, parameters, and deployment status systematically"
+                            }
+                        ]
+                    },
+                    {
+                        name: "4. Deployment & Serving",
+                        tools: [
+                            { 
+                                name: "FastAPI", 
+                                purpose: "REST API",
+                                reason: "Modern, fast web framework with automatic API documentation and async support for high-throughput"
+                            },
+                            { 
+                                name: "Docker", 
+                                purpose: "Containerization",
+                                reason: "Ensures consistent deployment across environments and simplifies dependency management"
+                            },
+                            { 
+                                name: "Redis", 
+                                purpose: "Response caching",
+                                reason: "In-memory cache for frequent queries, reducing latency and model inference costs"
+                            },
+                            { 
+                                name: "Kubernetes", 
+                                purpose: "Orchestration",
+                                reason: "Handles auto-scaling, load balancing, and zero-downtime deployments for production systems"
+                            },
+                            { 
+                                name: "NGINX", 
+                                purpose: "Load balancing",
+                                reason: "Distributes traffic across multiple model instances, ensuring high availability and performance"
+                            }
+                        ]
+                    },
+                    {
+                        name: "5. Monitoring & Improvement",
+                        tools: [
+                            { 
+                                name: "Prometheus", 
+                                purpose: "Metrics collection",
+                                reason: "Collects system and application metrics for monitoring latency, throughput, and error rates"
+                            },
+                            { 
+                                name: "Grafana", 
+                                purpose: "Dashboards",
+                                reason: "Creates visual dashboards for real-time monitoring of chatbot performance and user satisfaction"
+                            },
+                            { 
+                                name: "Elasticsearch", 
+                                purpose: "Log analysis",
+                                reason: "Indexes and searches through conversation logs to identify failure patterns and improvement areas"
+                            },
+                            { 
+                                name: "Streamlit", 
+                                purpose: "Admin interface",
+                                reason: "Quickly build internal tools for reviewing conversations and managing chatbot responses"
+                            },
+                            { 
+                                name: "Rasa", 
+                                purpose: "Conversation management",
+                                reason: "Open-source framework for managing dialogue flows and integrating with business logic"
+                            }
+                        ]
+                    }
+                ]
+            },
+            recommendation: {
+                title: "E-commerce Recommendation System",
+                phases: [
+                    {
+                        name: "1. Data Collection & Storage",
+                        tools: [
+                            { 
+                                name: "Apache Kafka", 
+                                purpose: "Event streaming",
+                                reason: "Captures real-time user interactions (clicks, purchases, views) at scale for immediate processing"
+                            },
+                            { 
+                                name: "MongoDB", 
+                                purpose: "Product catalog",
+                                reason: "Flexible NoSQL database ideal for varied product attributes and frequent schema changes"
+                            },
+                            { 
+                                name: "Apache Spark", 
+                                purpose: "Data processing",
+                                reason: "Processes terabytes of user behavior data efficiently using distributed computing"
+                            },
+                            { 
+                                name: "Airflow", 
+                                purpose: "Pipeline orchestration",
+                                reason: "Schedules and monitors complex data workflows, ensuring data freshness and reliability"
+                            },
+                            { 
+                                name: "S3/GCS", 
+                                purpose: "Data lake storage",
+                                reason: "Cost-effective storage for historical data and model training datasets"
+                            }
+                        ]
+                    },
+                    {
+                        name: "2. Feature Engineering",
+                        tools: [
+                            { 
+                                name: "PySpark", 
+                                purpose: "Distributed processing",
+                                reason: "Computes user and item features across millions of users in parallel"
+                            },
+                            { 
+                                name: "Pandas", 
+                                purpose: "Data manipulation",
+                                reason: "Prototypes feature engineering logic before scaling to distributed systems"
+                            },
+                            { 
+                                name: "Scikit-learn", 
+                                purpose: "Feature encoding",
+                                reason: "Provides standard encoders for categorical variables and feature scaling"
+                            },
+                            { 
+                                name: "Feast", 
+                                purpose: "Feature store",
+                                reason: "Serves consistent features for training and production, preventing train-serve skew"
+                            },
+                            { 
+                                name: "DVC", 
+                                purpose: "Data versioning",
+                                reason: "Tracks dataset versions ensuring reproducibility and easy rollbacks"
+                            }
+                        ]
+                    },
+                    {
+                        name: "3. Model Development",
+                        tools: [
+                            { 
+                                name: "TensorFlow", 
+                                purpose: "Deep learning",
+                                reason: "Builds neural collaborative filtering models that capture complex user-item interactions"
+                            },
+                            { 
+                                name: "LightFM", 
+                                purpose: "Hybrid recommendations",
+                                reason: "Combines collaborative and content-based filtering for cold-start scenarios"
+                            },
+                            { 
+                                name: "Surprise", 
+                                purpose: "Collaborative filtering",
+                                reason: "Implements classic algorithms like SVD with built-in cross-validation"
+                            },
+                            { 
+                                name: "XGBoost", 
+                                purpose: "Ranking models",
+                                reason: "Creates learning-to-rank models that optimize for business metrics"
+                            },
+                            { 
+                                name: "Optuna", 
+                                purpose: "Hyperparameter tuning",
+                                reason: "Finds optimal hyperparameters efficiently using Bayesian optimization"
+                            }
+                        ]
+                    },
+                    {
+                        name: "4. Production Deployment",
+                        tools: [
+                            { 
+                                name: "TensorFlow Serving", 
+                                purpose: "Model serving",
+                                reason: "Serves TensorFlow models with low latency and automatic batching"
+                            },
+                            { 
+                                name: "Redis", 
+                                purpose: "Real-time features",
+                                reason: "Caches user session data and recent interactions for real-time personalization"
+                            },
+                            { 
+                                name: "Pinecone", 
+                                purpose: "Vector similarity",
+                                reason: "Enables fast similarity search for finding related products in embedding space"
+                            },
+                            { 
+                                name: "FastAPI", 
+                                purpose: "API endpoints",
+                                reason: "Creates high-performance APIs with automatic documentation and validation"
+                            },
+                            { 
+                                name: "Docker/K8s", 
+                                purpose: "Container orchestration",
+                                reason: "Ensures scalability and reliability with auto-scaling and health checks"
+                            }
+                        ]
+                    },
+                    {
+                        name: "5. A/B Testing & Monitoring",
+                        tools: [
+                            { 
+                                name: "Optimizely", 
+                                purpose: "A/B testing",
+                                reason: "Runs controlled experiments to measure recommendation impact on revenue"
+                            },
+                            { 
+                                name: "Google Analytics", 
+                                purpose: "User behavior",
+                                reason: "Tracks conversion funnels and user engagement with recommendations"
+                            },
+                            { 
+                                name: "Metabase", 
+                                purpose: "Business metrics",
+                                reason: "Creates dashboards for business stakeholders to monitor KPIs"
+                            },
+                            { 
+                                name: "MLflow", 
+                                purpose: "Model registry",
+                                reason: "Manages model versions and enables safe rollbacks if metrics degrade"
+                            },
+                            { 
+                                name: "Great Expectations", 
+                                purpose: "Data quality",
+                                reason: "Monitors data drift and quality issues that could impact recommendations"
+                            }
+                        ]
+                    }
+                ]
+            },
+            vision: {
+                title: "Medical Image Analysis System",
+                phases: [
+                    {
+                        name: "1. Data Management",
+                        tools: [
+                            { 
+                                name: "DICOM Server", 
+                                purpose: "Medical image storage",
+                                reason: "Industry standard for storing and transmitting medical images with patient metadata securely"
+                            },
+                            { 
+                                name: "OpenCV", 
+                                purpose: "Image preprocessing",
+                                reason: "Handles image normalization, resizing, and format conversion essential for model input"
+                            },
+                            { 
+                                name: "Albumentations", 
+                                purpose: "Data augmentation",
+                                reason: "Increases training data diversity through realistic medical image transformations"
+                            },
+                            { 
+                                name: "CVAT", 
+                                purpose: "Image annotation",
+                                reason: "Enables radiologists to annotate pathologies with bounding boxes and segmentation masks"
+                            },
+                            { 
+                                name: "MinIO", 
+                                purpose: "Object storage",
+                                reason: "Self-hosted S3-compatible storage for HIPAA-compliant data management"
+                            }
+                        ]
+                    },
+                    {
+                        name: "2. Model Development",
+                        tools: [
+                            { 
+                                name: "PyTorch", 
+                                purpose: "Deep learning framework",
+                                reason: "Preferred in medical research for its flexibility and strong community support"
+                            },
+                            { 
+                                name: "MONAI", 
+                                purpose: "Medical imaging toolkit",
+                                reason: "Specialized for medical images with 3D operations, transforms, and pre-trained models"
+                            },
+                            { 
+                                name: "Detectron2", 
+                                purpose: "Object detection",
+                                reason: "State-of-the-art detection for identifying tumors, lesions, and abnormalities"
+                            },
+                            { 
+                                name: "segmentation_models", 
+                                purpose: "Segmentation",
+                                reason: "Pre-implemented U-Net and other architectures proven effective for medical segmentation"
+                            },
+                            { 
+                                name: "TensorBoard", 
+                                purpose: "Training monitoring",
+                                reason: "Visualizes training progress and helps identify convergence issues early"
+                            }
+                        ]
+                    },
+                    {
+                        name: "3. Model Validation",
+                        tools: [
+                            { 
+                                name: "scikit-learn", 
+                                purpose: "Evaluation metrics",
+                                reason: "Computes sensitivity, specificity, AUC-ROC critical for medical diagnosis evaluation"
+                            },
+                            { 
+                                name: "Neptune.ai", 
+                                purpose: "Experiment tracking",
+                                reason: "Tracks experiments with HIPAA compliance and team collaboration features"
+                            },
+                            { 
+                                name: "Weights & Biases", 
+                                purpose: "Visualization",
+                                reason: "Creates interactive plots of model predictions vs. ground truth for clinical review"
+                            },
+                            { 
+                                name: "SHAP", 
+                                purpose: "Model interpretation",
+                                reason: "Explains which image regions influenced diagnosis, crucial for clinical trust"
+                            },
+                            { 
+                                name: "Captum", 
+                                purpose: "PyTorch interpretability",
+                                reason: "Generates heatmaps showing model attention areas for radiologist validation"
+                            }
+                        ]
+                    },
+                    {
+                        name: "4. Clinical Deployment",
+                        tools: [
+                            { 
+                                name: "ONNX", 
+                                purpose: "Model optimization",
+                                reason: "Optimizes models for faster inference while maintaining diagnostic accuracy"
+                            },
+                            { 
+                                name: "TorchServe", 
+                                purpose: "Model serving",
+                                reason: "Production-grade serving with built-in model versioning and A/B testing"
+                            },
+                            { 
+                                name: "HL7 FHIR", 
+                                purpose: "Healthcare integration",
+                                reason: "Integrates with hospital systems using healthcare interoperability standards"
+                            },
+                            { 
+                                name: "Docker", 
+                                purpose: "Containerization",
+                                reason: "Ensures consistent deployment across different hospital IT environments"
+                            },
+                            { 
+                                name: "Kubernetes", 
+                                purpose: "Orchestration",
+                                reason: "Manages scaling during peak hours and ensures high availability for critical systems"
+                            }
+                        ]
+                    },
+                    {
+                        name: "5. Compliance & Monitoring",
+                        tools: [
+                            { 
+                                name: "Grafana", 
+                                purpose: "Performance monitoring",
+                                reason: "Monitors inference times and system health for SLA compliance"
+                            },
+                            { 
+                                name: "Elasticsearch", 
+                                purpose: "Audit logging",
+                                reason: "Maintains detailed logs for regulatory compliance and malpractice protection"
+                            },
+                            { 
+                                name: "LIME", 
+                                purpose: "Explainability",
+                                reason: "Provides case-by-case explanations required for FDA approval and clinical adoption"
+                            },
+                            { 
+                                name: "Gradio", 
+                                purpose: "Clinician interface",
+                                reason: "Creates user-friendly interfaces for doctors to interact with AI predictions"
+                            },
+                            { 
+                                name: "PostgreSQL", 
+                                purpose: "Results database",
+                                reason: "Stores predictions, confidence scores, and clinician feedback for continuous improvement"
+                            }
+                        ]
+                    }
+                ]
+            },
+            forecast: {
+                title: "Sales Forecasting Platform",
+                phases: [
+                    {
+                        name: "1. Data Integration",
+                        tools: [
+                            { 
+                                name: "Apache Airflow", 
+                                purpose: "ETL pipelines",
+                                reason: "Orchestrates complex data workflows from multiple sources with dependency management"
+                            },
+                            { 
+                                name: "Pandas", 
+                                purpose: "Data manipulation",
+                                reason: "Essential for time series data cleaning, resampling, and feature engineering"
+                            },
+                            { 
+                                name: "SQL Server", 
+                                purpose: "Sales database",
+                                reason: "Stores transactional data with ACID guarantees critical for financial accuracy"
+                            },
+                            { 
+                                name: "dbt", 
+                                purpose: "Data transformation",
+                                reason: "Transforms raw sales data into analytics-ready datasets with version control"
+                            },
+                            { 
+                                name: "Great Expectations", 
+                                purpose: "Data validation",
+                                reason: "Catches data quality issues early preventing garbage-in-garbage-out forecasts"
+                            }
+                        ]
+                    },
+                    {
+                        name: "2. Exploratory Analysis",
+                        tools: [
+                            { 
+                                name: "Jupyter", 
+                                purpose: "Analysis notebooks",
+                                reason: "Interactive environment for exploring seasonality, trends, and anomalies"
+                            },
+                            { 
+                                name: "Plotly", 
+                                purpose: "Interactive visualization",
+                                reason: "Creates zoomable time series plots for identifying patterns across periods"
+                            },
+                            { 
+                                name: "statsmodels", 
+                                purpose: "Statistical analysis",
+                                reason: "Performs decomposition, stationarity tests, and autocorrelation analysis"
+                            },
+                            { 
+                                name: "Pandas Profiling", 
+                                purpose: "Data profiling",
+                                reason: "Automatically generates comprehensive reports highlighting data issues"
+                            },
+                            { 
+                                name: "Seaborn", 
+                                purpose: "Statistical plots",
+                                reason: "Visualizes correlations between features and seasonal patterns effectively"
+                            }
+                        ]
+                    },
+                    {
+                        name: "3. Model Development",
+                        tools: [
+                            { 
+                                name: "Prophet", 
+                                purpose: "Time series forecasting",
+                                reason: "Handles holidays, seasonality, and missing data robustly with minimal tuning"
+                            },
+                            { 
+                                name: "statsforecast", 
+                                purpose: "Statistical models",
+                                reason: "Implements ARIMA, ETS models that work well with limited historical data"
+                            },
+                            { 
+                                name: "Darts", 
+                                purpose: "Deep learning TS",
+                                reason: "Provides neural forecasting models for complex non-linear patterns"
+                            },
+                            { 
+                                name: "XGBoost", 
+                                purpose: "Feature-based models",
+                                reason: "Captures impact of promotions, pricing, and external factors on sales"
+                            },
+                            { 
+                                name: "Optuna", 
+                                purpose: "Hyperparameter tuning",
+                                reason: "Optimizes forecast accuracy across multiple horizons and metrics"
+                            }
+                        ]
+                    },
+                    {
+                        name: "4. Production System",
+                        tools: [
+                            { 
+                                name: "MLflow", 
+                                purpose: "Model management",
+                                reason: "Tracks model versions, parameters, and performance for governance"
+                            },
+                            { 
+                                name: "FastAPI", 
+                                purpose: "Prediction API",
+                                reason: "Serves forecasts with sub-second latency for real-time decision making"
+                            },
+                            { 
+                                name: "Celery", 
+                                purpose: "Batch predictions",
+                                reason: "Handles scheduled forecast generation for thousands of products/stores"
+                            },
+                            { 
+                                name: "Redis", 
+                                purpose: "Caching layer",
+                                reason: "Caches frequently requested forecasts reducing computation costs"
+                            },
+                            { 
+                                name: "PostgreSQL", 
+                                purpose: "Forecast storage",
+                                reason: "Stores forecasts with confidence intervals and metadata for analysis"
+                            }
+                        ]
+                    },
+                    {
+                        name: "5. Business Dashboard",
+                        tools: [
+                            { 
+                                name: "Streamlit", 
+                                purpose: "Interactive dashboard",
+                                reason: "Rapidly builds custom dashboards for different stakeholder needs"
+                            },
+                            { 
+                                name: "PowerBI/Tableau", 
+                                purpose: "Business reporting",
+                                reason: "Integrates with existing BI tools for enterprise-wide adoption"
+                            },
+                            { 
+                                name: "Prometheus", 
+                                purpose: "Metrics collection",
+                                reason: "Monitors forecast accuracy and API performance in real-time"
+                            },
+                            { 
+                                name: "Slack API", 
+                                purpose: "Alert notifications",
+                                reason: "Sends alerts when forecasts deviate significantly or data issues arise"
+                            },
+                            { 
+                                name: "Apache Superset", 
+                                purpose: "Data exploration",
+                                reason: "Enables business users to explore forecasts without SQL knowledge"
+                            }
+                        ]
+                    }
+                ]
+            },
+            fraud: {
+                title: "Real-time Fraud Detection System",
+                phases: [
+                    {
+                        name: "1. Data Streaming Infrastructure",
+                        tools: [
+                            { 
+                                name: "Apache Kafka", 
+                                purpose: "Event streaming",
+                                reason: "Handles millions of transactions per second with guaranteed delivery and ordering"
+                            },
+                            { 
+                                name: "Apache Flink", 
+                                purpose: "Stream processing",
+                                reason: "Computes real-time features like velocity checks within milliseconds"
+                            },
+                            { 
+                                name: "Cassandra", 
+                                purpose: "Real-time storage",
+                                reason: "Provides low-latency access to user profiles and transaction history"
+                            },
+                            { 
+                                name: "Redis", 
+                                purpose: "Feature cache",
+                                reason: "Stores hot features like recent transaction counts for sub-millisecond access"
+                            },
+                            { 
+                                name: "Elasticsearch", 
+                                purpose: "Transaction search",
+                                reason: "Enables fraud analysts to quickly investigate suspicious patterns"
+                            }
+                        ]
+                    },
+                    {
+                        name: "2. Feature Engineering",
+                        tools: [
+                            { 
+                                name: "PySpark", 
+                                purpose: "Batch features",
+                                reason: "Computes historical aggregates across billions of transactions efficiently"
+                            },
+                            { 
+                                name: "Feast", 
+                                purpose: "Feature store",
+                                reason: "Ensures consistency between training and serving features preventing skew"
+                            },
+                            { 
+                                name: "Pandas", 
+                                purpose: "Feature creation",
+                                reason: "Prototypes complex feature logic before scaling to production"
+                            },
+                            { 
+                                name: "NetworkX", 
+                                purpose: "Graph features",
+                                reason: "Identifies fraud rings through network analysis of transaction graphs"
+                            },
+                            { 
+                                name: "scikit-learn", 
+                                purpose: "Feature encoding",
+                                reason: "Handles categorical variables like merchant codes and transaction types"
+                            }
+                        ]
+                    },
+                    {
+                        name: "3. Model Development",
+                        tools: [
+                            { 
+                                name: "XGBoost", 
+                                purpose: "Gradient boosting",
+                                reason: "Provides excellent performance on tabular data with interpretable features"
+                            },
+                            { 
+                                name: "Isolation Forest", 
+                                purpose: "Anomaly detection",
+                                reason: "Detects novel fraud patterns without labeled examples"
+                            },
+                            { 
+                                name: "PyTorch", 
+                                purpose: "Deep learning",
+                                reason: "Builds sequence models for detecting unusual transaction patterns"
+                            },
+                            { 
+                                name: "SMOTE", 
+                                purpose: "Imbalanced data",
+                                reason: "Handles extreme class imbalance (99.9% legitimate transactions)"
+                            },
+                            { 
+                                name: "Optuna", 
+                                purpose: "Hyperparameter tuning",
+                                reason: "Optimizes precision-recall tradeoff critical for fraud detection"
+                            }
+                        ]
+                    },
+                    {
+                        name: "4. Real-time Scoring",
+                        tools: [
+                            { 
+                                name: "TensorFlow Serving", 
+                                purpose: "Model serving",
+                                reason: "Serves models with <10ms latency required for payment authorization"
+                            },
+                            { 
+                                name: "Seldon Core", 
+                                purpose: "ML deployment",
+                                reason: "Enables A/B testing and canary deployments for safe model updates"
+                            },
+                            { 
+                                name: "gRPC", 
+                                purpose: "Low-latency API",
+                                reason: "Provides microsecond-level communication between services"
+                            },
+                            { 
+                                name: "Kubernetes", 
+                                purpose: "Auto-scaling",
+                                reason: "Scales inference pods during peak shopping periods automatically"
+                            },
+                            { 
+                                name: "Istio", 
+                                purpose: "Service mesh",
+                                reason: "Manages traffic routing and provides circuit breakers for resilience"
+                            }
+                        ]
+                    },
+                    {
+                        name: "5. Monitoring & Adaptation",
+                        tools: [
+                            { 
+                                name: "Grafana", 
+                                purpose: "Real-time dashboards",
+                                reason: "Monitors fraud rates, false positives, and system performance 24/7"
+                            },
+                            { 
+                                name: "Prometheus", 
+                                purpose: "Metrics monitoring",
+                                reason: "Collects detailed metrics for SLA monitoring and alerting"
+                            },
+                            { 
+                                name: "MLflow", 
+                                purpose: "Model tracking",
+                                reason: "Tracks model performance degradation and triggers retraining"
+                            },
+                            { 
+                                name: "Alibi Detect", 
+                                purpose: "Drift detection",
+                                reason: "Detects when fraud patterns change requiring model updates"
+                            },
+                            { 
+                                name: "Kubeflow", 
+                                purpose: "Retraining pipelines",
+                                reason: "Automates model retraining when performance drops below thresholds"
+                            }
+                        ]
+                    }
+                ]
+            },
+            sentiment: {
+                title: "Social Media Sentiment Analysis",
+                phases: [
+                    {
+                        name: "1. Data Collection",
+                        tools: [
+                            { 
+                                name: "Twitter API", 
+                                purpose: "Social data",
+                                reason: "Provides real-time access to tweets with metadata for brand monitoring"
+                            },
+                            { 
+                                name: "Beautiful Soup", 
+                                purpose: "Web scraping",
+                                reason: "Extracts reviews and comments from websites without APIs"
+                            },
+                            { 
+                                name: "Apache Kafka", 
+                                purpose: "Stream ingestion",
+                                reason: "Handles high-volume social media streams without data loss"
+                            },
+                            { 
+                                name: "MongoDB", 
+                                purpose: "Document storage",
+                                reason: "Stores varied social media formats (tweets, posts, reviews) flexibly"
+                            },
+                            { 
+                                name: "Scrapy", 
+                                purpose: "Large-scale scraping",
+                                reason: "Manages distributed scraping with rate limiting and retries"
+                            }
+                        ]
+                    },
+                    {
+                        name: "2. Text Processing",
+                        tools: [
+                            { 
+                                name: "spaCy", 
+                                purpose: "NLP pipeline",
+                                reason: "Provides fast tokenization, POS tagging, and entity recognition"
+                            },
+                            { 
+                                name: "NLTK", 
+                                purpose: "Text preprocessing",
+                                reason: "Handles stopword removal, stemming, and sentiment lexicons"
+                            },
+                            { 
+                                name: "Polyglot", 
+                                purpose: "Multilingual NLP",
+                                reason: "Processes sentiment in 100+ languages for global brand monitoring"
+                            },
+                            { 
+                                name: "TextBlob", 
+                                purpose: "Simple sentiment",
+                                reason: "Provides quick baseline sentiment scores for initial analysis"
+                            },
+                            { 
+                                name: "Gensim", 
+                                purpose: "Topic modeling",
+                                reason: "Identifies trending topics and themes in sentiment discussions"
+                            }
+                        ]
+                    },
+                    {
+                        name: "3. Model Development",
+                        tools: [
+                            { 
+                                name: "Transformers", 
+                                purpose: "BERT models",
+                                reason: "State-of-the-art models that understand context and sarcasm"
+                            },
+                            { 
+                                name: "PyTorch", 
+                                purpose: "Deep learning",
+                                reason: "Builds custom architectures for domain-specific sentiment"
+                            },
+                            { 
+                                name: "Flair", 
+                                purpose: "State-of-art NLP",
+                                reason: "Combines multiple embeddings for superior sentiment accuracy"
+                            },
+                            { 
+                                name: "fastText", 
+                                purpose: "Text classification",
+                                reason: "Handles misspellings and slang common in social media"
+                            },
+                            { 
+                                name: "Weights & Biases", 
+                                purpose: "Experiment tracking",
+                                reason: "Compares performance across different models and datasets"
+                            }
+                        ]
+                    },
+                    {
+                        name: "4. Analysis Pipeline",
+                        tools: [
+                            { 
+                                name: "Apache Airflow", 
+                                purpose: "Workflow orchestration",
+                                reason: "Schedules regular sentiment analysis runs and report generation"
+                            },
+                            { 
+                                name: "Dask", 
+                                purpose: "Parallel processing",
+                                reason: "Processes millions of posts in parallel for timely insights"
+                            },
+                            { 
+                                name: "FastAPI", 
+                                purpose: "Sentiment API",
+                                reason: "Provides real-time sentiment scoring for customer service teams"
+                            },
+                            { 
+                                name: "Redis", 
+                                purpose: "Results caching",
+                                reason: "Caches sentiment scores for frequently mentioned entities"
+                            },
+                            { 
+                                name: "PostgreSQL", 
+                                purpose: "Analytics database",
+                                reason: "Stores historical sentiment trends for longitudinal analysis"
+                            }
+                        ]
+                    },
+                    {
+                        name: "5. Visualization & Insights",
+                        tools: [
+                            { 
+                                name: "Streamlit", 
+                                purpose: "Dashboard creation",
+                                reason: "Rapidly builds interactive dashboards for different departments"
+                            },
+                            { 
+                                name: "Plotly Dash", 
+                                purpose: "Interactive charts",
+                                reason: "Creates real-time sentiment trend visualizations and heatmaps"
+                            },
+                            { 
+                                name: "Elasticsearch", 
+                                purpose: "Search & analytics",
+                                reason: "Enables drilling down into specific sentiment drivers"
+                            },
+                            { 
+                                name: "Kibana", 
+                                purpose: "Data exploration",
+                                reason: "Provides pre-built dashboards for sentiment monitoring"
+                            },
+                            { 
+                                name: "Tableau", 
+                                purpose: "Business intelligence",
+                                reason: "Integrates sentiment data with business metrics for C-suite reporting"
+                            }
+                        ]
+                    }
+                ]
+            },
+            "rag-agent": {
+                title: "RAG-based Knowledge Assistant",
+                phases: [
+                    {
+                        name: "1. Document Processing & Ingestion",
+                        tools: [
+                            { 
+                                name: "LangChain", 
+                                purpose: "Document loaders",
+                                reason: "Provides 100+ document loaders for PDFs, Word, websites, and databases"
+                            },
+                            { 
+                                name: "Unstructured", 
+                                purpose: "Parse PDFs/docs",
+                                reason: "Extracts text, tables, and images from complex documents accurately"
+                            },
+                            { 
+                                name: "Apache Tika", 
+                                purpose: "Content extraction",
+                                reason: "Handles 1000+ file formats ensuring no knowledge is left behind"
+                            },
+                            { 
+                                name: "Docling", 
+                                purpose: "Document parsing",
+                                reason: "Preserves document structure and formatting for better context"
+                            },
+                            { 
+                                name: "MinIO", 
+                                purpose: "Document storage",
+                                reason: "Provides S3-compatible storage for source documents and versions"
+                            }
+                        ]
+                    },
+                    {
+                        name: "2. Embeddings & Vector Storage",
+                        tools: [
+                            { 
+                                name: "OpenAI API", 
+                                purpose: "Text embeddings",
+                                reason: "Produces high-quality embeddings optimized for semantic search"
+                            },
+                            { 
+                                name: "Sentence Transformers", 
+                                purpose: "Open embeddings",
+                                reason: "Free alternative for creating embeddings with good multilingual support"
+                            },
+                            { 
+                                name: "Pinecone", 
+                                purpose: "Vector database",
+                                reason: "Managed service handling billions of vectors with millisecond search"
+                            },
+                            { 
+                                name: "Qdrant", 
+                                purpose: "Self-hosted vectors",
+                                reason: "Open-source option for sensitive data requiring on-premise deployment"
+                            },
+                            { 
+                                name: "ChromaDB", 
+                                purpose: "Local vector store",
+                                reason: "Lightweight option for development and smaller knowledge bases"
+                            }
+                        ]
+                    },
+                    {
+                        name: "3. Agent Development",
+                        tools: [
+                            { 
+                                name: "LangChain", 
+                                purpose: "Agent framework",
+                                reason: "Provides chains, agents, and memory for complex Q&A workflows"
+                            },
+                            { 
+                                name: "LlamaIndex", 
+                                purpose: "Data framework",
+                                reason: "Specializes in connecting LLMs with structured/unstructured data"
+                            },
+                            { 
+                                name: "Claude/GPT-4", 
+                                purpose: "LLM backbone",
+                                reason: "Provides reasoning capabilities and natural language generation"
+                            },
+                            { 
+                                name: "Anthropic API", 
+                                purpose: "Model access",
+                                reason: "Offers Claude models with large context windows for complex documents"
+                            },
+                            { 
+                                name: "LangSmith", 
+                                purpose: "Debug & monitor",
+                                reason: "Traces agent execution helping identify and fix retrieval issues"
+                            }
+                        ]
+                    },
+                    {
+                        name: "4. Retrieval & Orchestration",
+                        tools: [
+                            { 
+                                name: "FastAPI", 
+                                purpose: "API endpoints",
+                                reason: "Creates performant REST APIs with automatic documentation"
+                            },
+                            { 
+                                name: "Celery", 
+                                purpose: "Async processing",
+                                reason: "Handles long-running document processing and embedding tasks"
+                            },
+                            { 
+                                name: "Redis", 
+                                purpose: "Caching layer",
+                                reason: "Caches frequent queries and conversation history for speed"
+                            },
+                            { 
+                                name: "RabbitMQ", 
+                                purpose: "Message queue",
+                                reason: "Manages document processing queue and agent task distribution"
+                            },
+                            { 
+                                name: "PostgreSQL", 
+                                purpose: "Metadata storage",
+                                reason: "Stores document metadata, user permissions, and audit logs"
+                            }
+                        ]
+                    },
+                    {
+                        name: "5. Production & Monitoring",
+                        tools: [
+                            { 
+                                name: "Gradio", 
+                                purpose: "User interface",
+                                reason: "Creates chat interfaces with file upload in minutes"
+                            },
+                            { 
+                                name: "Streamlit", 
+                                purpose: "Admin dashboard",
+                                reason: "Builds admin tools for managing documents and monitoring usage"
+                            },
+                            { 
+                                name: "Langfuse", 
+                                purpose: "LLM monitoring",
+                                reason: "Tracks token usage, latency, and user satisfaction metrics"
+                            },
+                            { 
+                                name: "Prometheus", 
+                                purpose: "Metrics tracking",
+                                reason: "Monitors system health, API latency, and resource usage"
+                            },
+                            { 
+                                name: "Docker/K8s", 
+                                purpose: "Deployment",
+                                reason: "Ensures consistent deployment and scaling across environments"
+                            }
+                        ]
+                    }
+                ]
+            },
+            "code-agent": {
+                title: "Autonomous Coding Agent",
+                phases: [
+                    {
+                        name: "1. Development Environment",
+                        tools: [
+                            { 
+                                name: "GitHub API", 
+                                purpose: "Code repository",
+                                reason: "Enables agents to read, write, and version control code programmatically"
+                            },
+                            { 
+                                name: "Docker", 
+                                purpose: "Isolated environments",
+                                reason: "Provides safe sandboxes for code execution preventing system damage"
+                            },
+                            { 
+                                name: "VS Code API", 
+                                purpose: "Editor integration",
+                                reason: "Allows agents to use IDE features like intellisense and debugging"
+                            },
+                            { 
+                                name: "Jupyter", 
+                                purpose: "Interactive coding",
+                                reason: "Enables iterative development and testing of code snippets"
+                            },
+                            { 
+                                name: "Git", 
+                                purpose: "Version control",
+                                reason: "Tracks changes and enables rollback when agent makes mistakes"
+                            }
+                        ]
+                    },
+                    {
+                        name: "2. Agent Framework",
+                        tools: [
+                            { 
+                                name: "AutoGPT", 
+                                purpose: "Agent framework",
+                                reason: "Provides autonomous goal-seeking behavior for complex coding tasks"
+                            },
+                            { 
+                                name: "LangChain Agents", 
+                                purpose: "Tool orchestration",
+                                reason: "Coordinates between code generation, testing, and deployment tools"
+                            },
+                            { 
+                                name: "Claude/GPT-4", 
+                                purpose: "Code generation",
+                                reason: "Generates high-quality code with understanding of complex requirements"
+                            },
+                            { 
+                                name: "Codex", 
+                                purpose: "Code completion",
+                                reason: "Specialized model trained on code for better syntax accuracy"
+                            },
+                            { 
+                                name: "Function Calling", 
+                                purpose: "Tool use",
+                                reason: "Enables agents to use APIs, run tests, and deploy code"
+                            }
+                        ]
+                    },
+                    {
+                        name: "3. Code Analysis & Testing",
+                        tools: [
+                            { 
+                                name: "AST Parser", 
+                                purpose: "Code analysis",
+                                reason: "Understands code structure for refactoring and optimization"
+                            },
+                            { 
+                                name: "Pytest", 
+                                purpose: "Test generation",
+                                reason: "Creates comprehensive test suites ensuring code reliability"
+                            },
+                            { 
+                                name: "Black/Ruff", 
+                                purpose: "Code formatting",
+                                reason: "Maintains consistent code style across agent-generated code"
+                            },
+                            { 
+                                name: "SonarQube", 
+                                purpose: "Code quality",
+                                reason: "Identifies bugs, vulnerabilities, and code smells automatically"
+                            },
+                            { 
+                                name: "Bandit", 
+                                purpose: "Security scanning",
+                                reason: "Prevents agents from introducing security vulnerabilities"
+                            }
+                        ]
+                    },
+                    {
+                        name: "4. Execution & Debugging",
+                        tools: [
+                            { 
+                                name: "Subprocess", 
+                                purpose: "Code execution",
+                                reason: "Runs generated code safely with timeout and resource limits"
+                            },
+                            { 
+                                name: "Docker SDK", 
+                                purpose: "Container management",
+                                reason: "Creates isolated environments for testing different scenarios"
+                            },
+                            { 
+                                name: "Ray", 
+                                purpose: "Distributed execution",
+                                reason: "Parallelizes testing and execution across multiple scenarios"
+                            },
+                            { 
+                                name: "Sentry", 
+                                purpose: "Error tracking",
+                                reason: "Captures runtime errors helping agents learn from failures"
+                            },
+                            { 
+                                name: "OpenTelemetry", 
+                                purpose: "Tracing",
+                                reason: "Provides detailed execution traces for debugging complex issues"
+                            }
+                        ]
+                    },
+                    {
+                        name: "5. Deployment & CI/CD",
+                        tools: [
+                            { 
+                                name: "GitHub Actions", 
+                                purpose: "CI/CD pipeline",
+                                reason: "Automates testing and deployment of agent-generated code"
+                            },
+                            { 
+                                name: "Terraform", 
+                                purpose: "Infrastructure code",
+                                reason: "Enables agents to provision cloud resources programmatically"
+                            },
+                            { 
+                                name: "ArgoCD", 
+                                purpose: "GitOps deployment",
+                                reason: "Ensures deployments match git repository state exactly"
+                            },
+                            { 
+                                name: "Vercel/Netlify", 
+                                purpose: "Frontend deploy",
+                                reason: "Simplifies deployment of web applications with preview URLs"
+                            },
+                            { 
+                                name: "AWS CDK", 
+                                purpose: "Cloud resources",
+                                reason: "Defines cloud infrastructure using familiar programming languages"
+                            }
+                        ]
+                    }
+                ]
+            },
+            "multi-agent": {
+                title: "Multi-Agent Research System",
+                phases: [
+                    {
+                        name: "1. Agent Architecture",
+                        tools: [
+                            { 
+                                name: "CrewAI", 
+                                purpose: "Multi-agent framework",
+                                reason: "Simplifies creating teams of agents with defined roles and workflows"
+                            },
+                            { 
+                                name: "AutoGen", 
+                                purpose: "Agent orchestration",
+                                reason: "Microsoft's framework enabling conversational agent collaboration"
+                            },
+                            { 
+                                name: "LangGraph", 
+                                purpose: "Agent workflows",
+                                reason: "Creates stateful, multi-actor applications with complex routing"
+                            },
+                            { 
+                                name: "Apache Kafka", 
+                                purpose: "Agent communication",
+                                reason: "Enables reliable message passing between distributed agents"
+                            },
+                            { 
+                                name: "Redis Pub/Sub", 
+                                purpose: "Message passing",
+                                reason: "Provides real-time communication for agent coordination"
+                            }
+                        ]
+                    },
+                    {
+                        name: "2. Specialized Agents",
+                        tools: [
+                            { 
+                                name: "GPT-4", 
+                                purpose: "Research agent",
+                                reason: "Handles complex reasoning and synthesis tasks effectively"
+                            },
+                            { 
+                                name: "Claude", 
+                                purpose: "Analysis agent",
+                                reason: "Excels at detailed analysis with large context windows"
+                            },
+                            { 
+                                name: "Perplexity API", 
+                                purpose: "Search agent",
+                                reason: "Provides web search with source citations and summaries"
+                            },
+                            { 
+                                name: "WolframAlpha", 
+                                purpose: "Computation agent",
+                                reason: "Handles mathematical calculations and data analysis"
+                            },
+                            { 
+                                name: "SerpAPI", 
+                                purpose: "Web research",
+                                reason: "Scrapes search results from multiple search engines"
+                            }
+                        ]
+                    },
+                    {
+                        name: "3. Knowledge Management",
+                        tools: [
+                            { 
+                                name: "Neo4j", 
+                                purpose: "Knowledge graph",
+                                reason: "Maps relationships between concepts, facts, and sources"
+                            },
+                            { 
+                                name: "Elasticsearch", 
+                                purpose: "Document search",
+                                reason: "Enables fast full-text search across research materials"
+                            },
+                            { 
+                                name: "Weaviate", 
+                                purpose: "Semantic search",
+                                reason: "Combines vector and keyword search for better results"
+                            },
+                            { 
+                                name: "DuckDB", 
+                                purpose: "Analytics database",
+                                reason: "Provides fast analytical queries on structured data"
+                            },
+                            { 
+                                name: "Apache Spark", 
+                                purpose: "Data processing",
+                                reason: "Processes large datasets for multi-agent analysis"
+                            }
+                        ]
+                    },
+                    {
+                        name: "4. Collaboration Layer",
+                        tools: [
+                            { 
+                                name: "RabbitMQ", 
+                                purpose: "Task queue",
+                                reason: "Distributes work among agents with guaranteed delivery"
+                            },
+                            { 
+                                name: "Apache Airflow", 
+                                purpose: "Workflow orchestration",
+                                reason: "Coordinates complex multi-stage research workflows"
+                            },
+                            { 
+                                name: "Temporal", 
+                                purpose: "Durable execution",
+                                reason: "Ensures long-running workflows complete despite failures"
+                            },
+                            { 
+                                name: "NATS", 
+                                purpose: "Messaging system",
+                                reason: "Provides lightweight, high-performance agent communication"
+                            },
+                            { 
+                                name: "Consul", 
+                                purpose: "Service discovery",
+                                reason: "Helps agents find and communicate with each other dynamically"
+                            }
+                        ]
+                    },
+                    {
+                        name: "5. Output & Monitoring",
+                        tools: [
+                            { 
+                                name: "Jupyter Book", 
+                                purpose: "Report generation",
+                                reason: "Creates professional research reports with code and visualizations"
+                            },
+                            { 
+                                name: "Streamlit", 
+                                purpose: "Results dashboard",
+                                reason: "Builds interactive dashboards for exploring research findings"
+                            },
+                            { 
+                                name: "Grafana", 
+                                purpose: "Agent monitoring",
+                                reason: "Tracks agent performance, task completion, and resource usage"
+                            },
+                            { 
+                                name: "MLflow", 
+                                purpose: "Experiment tracking",
+                                reason: "Logs research experiments and their outcomes systematically"
+                            },
+                            { 
+                                name: "Weights & Biases", 
+                                purpose: "Agent analytics",
+                                reason: "Analyzes agent behavior patterns and collaboration effectiveness"
+                            }
+                        ]
+                    }
+                ]
+            },
+            "customer-agent": {
+                title: "Autonomous Customer Success Agent",
+                phases: [
+                    {
+                        name: "1. Integration Layer",
+                        tools: [
+                            { 
+                                name: "Zapier API", 
+                                purpose: "App integration",
+                                reason: "Connects 5000+ apps without custom code for each integration"
+                            },
+                            { 
+                                name: "Salesforce API", 
+                                purpose: "CRM integration",
+                                reason: "Accesses customer history, cases, and business processes"
+                            },
+                            { 
+                                name: "Stripe API", 
+                                purpose: "Payment handling",
+                                reason: "Processes refunds, subscription changes, and payment queries"
+                            },
+                            { 
+                                name: "SendGrid", 
+                                purpose: "Email automation",
+                                reason: "Sends personalized emails with tracking and deliverability"
+                            },
+                            { 
+                                name: "Twilio", 
+                                purpose: "SMS/Voice",
+                                reason: "Enables omnichannel support through text and voice channels"
+                            }
+                        ]
+                    },
+                    {
+                        name: "2. Agent Core",
+                        tools: [
+                            { 
+                                name: "LangChain", 
+                                purpose: "Agent framework",
+                                reason: "Provides memory, tools, and chains for stateful conversations"
+                            },
+                            { 
+                                name: "GPT-4", 
+                                purpose: "Conversation engine",
+                                reason: "Understands context and generates human-like responses"
+                            },
+                            { 
+                                name: "Function Calling", 
+                                purpose: "Tool use",
+                                reason: "Enables agents to execute actions like refunds or bookings"
+                            },
+                            { 
+                                name: "Pydantic", 
+                                purpose: "Data validation",
+                                reason: "Ensures agent actions meet business rules before execution"
+                            },
+                            { 
+                                name: "Instructor", 
+                                purpose: "Structured outputs",
+                                reason: "Guarantees LLM outputs match expected schemas for reliability"
+                            }
+                        ]
+                    },
+                    {
+                        name: "3. Knowledge & Context",
+                        tools: [
+                            { 
+                                name: "Pinecone", 
+                                purpose: "Customer history",
+                                reason: "Retrieves relevant past interactions for personalized service"
+                            },
+                            { 
+                                name: "PostgreSQL", 
+                                purpose: "Order database",
+                                reason: "Provides real-time access to order status and history"
+                            },
+                            { 
+                                name: "Redis", 
+                                purpose: "Session state",
+                                reason: "Maintains conversation context across multiple interactions"
+                            },
+                            { 
+                                name: "Elasticsearch", 
+                                purpose: "FAQ search",
+                                reason: "Finds answers in knowledge base with fuzzy matching"
+                            },
+                            { 
+                                name: "MinIO", 
+                                purpose: "Document storage",
+                                reason: "Stores policies, manuals, and customer documents securely"
+                            }
+                        ]
+                    },
+                    {
+                        name: "4. Action Execution",
+                        tools: [
+                            { 
+                                name: "Celery", 
+                                purpose: "Task execution",
+                                reason: "Handles background tasks like sending emails or processing refunds"
+                            },
+                            { 
+                                name: "Temporal", 
+                                purpose: "Workflow engine",
+                                reason: "Manages complex multi-step processes with failure handling"
+                            },
+                            { 
+                                name: "Bull", 
+                                purpose: "Job queue",
+                                reason: "Prioritizes and schedules customer requests efficiently"
+                            },
+                            { 
+                                name: "n8n", 
+                                purpose: "Automation workflows",
+                                reason: "Creates visual workflows for common customer processes"
+                            },
+                            { 
+                                name: "Make.com API", 
+                                purpose: "Integration flows",
+                                reason: "Builds no-code integrations for business-specific needs"
+                            }
+                        ]
+                    },
+                    {
+                        name: "5. Analytics & Improvement",
+                        tools: [
+                            { 
+                                name: "Segment", 
+                                purpose: "Event tracking",
+                                reason: "Captures all customer interactions for analysis"
+                            },
+                            { 
+                                name: "Mixpanel", 
+                                purpose: "User analytics",
+                                reason: "Analyzes customer journey and agent effectiveness"
+                            },
+                            { 
+                                name: "Langfuse", 
+                                purpose: "LLM monitoring",
+                                reason: "Tracks conversation quality and identifies improvement areas"
+                            },
+                            { 
+                                name: "Hotjar", 
+                                purpose: "User feedback",
+                                reason: "Collects customer satisfaction and session recordings"
+                            },
+                            { 
+                                name: "Tableau", 
+                                purpose: "Business metrics",
+                                reason: "Visualizes agent impact on revenue and satisfaction scores"
+                            }
+                        ]
+                    }
+                ]
+            },
+            "data-agent": {
+                title: "Self-Serve Analytics Agent",
+                phases: [
+                    {
+                        name: "1. Data Infrastructure",
+                        tools: [
+                            { 
+                                name: "Snowflake", 
+                                purpose: "Data warehouse",
+                                reason: "Provides scalable compute and storage separation for cost-effective analytics"
+                            },
+                            { 
+                                name: "dbt", 
+                                purpose: "Data transformation",
+                                reason: "Transforms raw data into business-ready datasets with documentation"
+                            },
+                            { 
+                                name: "Apache Iceberg", 
+                                purpose: "Table format",
+                                reason: "Enables time travel and schema evolution for reliable analytics"
+                            },
+                            { 
+                                name: "Airbyte", 
+                                purpose: "Data ingestion",
+                                reason: "Syncs data from 300+ sources without custom connectors"
+                            },
+                            { 
+                                name: "Great Expectations", 
+                                purpose: "Data quality",
+                                reason: "Validates data quality preventing incorrect insights"
+                            }
+                        ]
+                    },
+                    {
+                        name: "2. NL2SQL Engine",
+                        tools: [
+                            { 
+                                name: "LangChain SQL", 
+                                purpose: "SQL generation",
+                                reason: "Converts natural language to SQL with schema awareness"
+                            },
+                            { 
+                                name: "SQLAlchemy", 
+                                purpose: "Database ORM",
+                                reason: "Provides database abstraction supporting multiple SQL dialects"
+                            },
+                            { 
+                                name: "Text-to-SQL Models", 
+                                purpose: "Query generation",
+                                reason: "Fine-tuned models understanding database-specific patterns"
+                            },
+                            { 
+                                name: "GPT-4", 
+                                purpose: "Natural language",
+                                reason: "Understands complex analytical questions and intent"
+                            },
+                            { 
+                                name: "Codex", 
+                                purpose: "Code generation",
+                                reason: "Generates complex SQL including CTEs and window functions"
+                            }
+                        ]
+                    },
+                    {
+                        name: "3. Visualization Layer",
+                        tools: [
+                            { 
+                                name: "Plotly", 
+                                purpose: "Interactive charts",
+                                reason: "Creates responsive visualizations users can explore"
+                            },
+                            { 
+                                name: "D3.js", 
+                                purpose: "Custom visuals",
+                                reason: "Builds unique visualizations for specific business needs"
+                            },
+                            { 
+                                name: "Apache ECharts", 
+                                purpose: "Chart library",
+                                reason: "Provides 50+ chart types with mobile optimization"
+                            },
+                            { 
+                                name: "Vega-Lite", 
+                                purpose: "Grammar of graphics",
+                                reason: "Enables declarative visualization generation from data"
+                            },
+                            { 
+                                name: "Observable", 
+                                purpose: "Data notebooks",
+                                reason: "Creates interactive data stories with live computation"
+                            }
+                        ]
+                    },
+                    {
+                        name: "4. Agent Interface",
+                        tools: [
+                            { 
+                                name: "Streamlit", 
+                                purpose: "Chat interface",
+                                reason: "Rapidly builds conversational analytics interfaces"
+                            },
+                            { 
+                                name: "FastAPI", 
+                                purpose: "API backend",
+                                reason: "Handles concurrent queries with async support"
+                            },
+                            { 
+                                name: "WebSockets", 
+                                purpose: "Real-time updates",
+                                reason: "Streams query results as they're computed"
+                            },
+                            { 
+                                name: "React", 
+                                purpose: "Frontend UI",
+                                reason: "Creates responsive interfaces with rich interactions"
+                            },
+                            { 
+                                name: "GraphQL", 
+                                purpose: "Flexible queries",
+                                reason: "Allows clients to request exactly the data they need"
+                            }
+                        ]
+                    },
+                    {
+                        name: "5. Governance & Security",
+                        tools: [
+                            { 
+                                name: "Apache Ranger", 
+                                purpose: "Access control",
+                                reason: "Enforces row and column-level security policies"
+                            },
+                            { 
+                                name: "Privacera", 
+                                purpose: "Data governance",
+                                reason: "Manages data privacy and compliance across platforms"
+                            },
+                            { 
+                                name: "Immuta", 
+                                purpose: "Data policies",
+                                reason: "Automates data access policies based on user attributes"
+                            },
+                            { 
+                                name: "Monte Carlo", 
+                                purpose: "Data observability",
+                                reason: "Detects data quality issues before they impact analytics"
+                            },
+                            { 
+                                name: "Datadog", 
+                                purpose: "Performance monitoring",
+                                reason: "Monitors query performance and resource utilization"
+                            }
+                        ]
+                    }
+                ]
+            },
+            "game-agent": {
+                title: "Game-Playing RL Agent",
+                phases: [
+                    {
+                        name: "1. Environment Setup",
+                        tools: [
+                            { 
+                                name: "Gymnasium", 
+                                purpose: "RL environments",
+                                reason: "Provides standardized game environments and APIs for training agents consistently"
+                            },
+                            { 
+                                name: "Unity ML-Agents", 
+                                purpose: "3D game environments",
+                                reason: "Enables training agents in complex 3D environments with physics simulation"
+                            },
+                            { 
+                                name: "PettingZoo", 
+                                purpose: "Multi-agent environments",
+                                reason: "Specialized for multi-agent scenarios like card games or team-based games"
+                            },
+                            { 
+                                name: "PyGame", 
+                                purpose: "Custom game creation",
+                                reason: "Allows building custom 2D game environments when existing ones don't suffice"
+                            },
+                            { 
+                                name: "Docker", 
+                                purpose: "Environment isolation",
+                                reason: "Ensures reproducible training environments across different machines"
+                            }
+                        ]
+                    },
+                    {
+                        name: "2. Algorithm Implementation",
+                        tools: [
+                            { 
+                                name: "Stable Baselines3", 
+                                purpose: "RL algorithms",
+                                reason: "Production-ready implementations of PPO, SAC, DQN - saves implementation time"
+                            },
+                            { 
+                                name: "RLlib", 
+                                purpose: "Distributed training",
+                                reason: "Scales RL training across multiple GPUs/nodes for complex environments"
+                            },
+                            { 
+                                name: "PyTorch", 
+                                purpose: "Neural networks",
+                                reason: "Flexible framework for implementing custom architectures and algorithms"
+                            },
+                            { 
+                                name: "JAX", 
+                                purpose: "High-performance compute",
+                                reason: "Enables extremely fast training through JIT compilation and vectorization"
+                            },
+                            { 
+                                name: "TensorBoard", 
+                                purpose: "Training monitoring",
+                                reason: "Visualizes reward curves, policy behavior, and training stability"
+                            }
+                        ]
+                    },
+                    {
+                        name: "3. Self-Play & Training",
+                        tools: [
+                            { 
+                                name: "Ray", 
+                                purpose: "Distributed computing",
+                                reason: "Manages thousands of parallel game simulations for self-play training"
+                            },
+                            { 
+                                name: "Redis", 
+                                purpose: "Experience replay",
+                                reason: "Stores game experiences for efficient sampling during training"
+                            },
+                            { 
+                                name: "Weights & Biases", 
+                                purpose: "Experiment tracking",
+                                reason: "Tracks hyperparameters and performance across different game scenarios"
+                            },
+                            { 
+                                name: "NVIDIA Isaac", 
+                                purpose: "GPU simulation",
+                                reason: "Accelerates physics simulation for robotics and complex game environments"
+                            },
+                            { 
+                                name: "Kubernetes", 
+                                purpose: "Training orchestration",
+                                reason: "Manages distributed training jobs and resource allocation"
+                            }
+                        ]
+                    },
+                    {
+                        name: "4. Evaluation & Analysis",
+                        tools: [
+                            { 
+                                name: "OpenSpiel", 
+                                purpose: "Game theory analysis",
+                                reason: "Analyzes strategy equilibria and exploitability in multi-player games"
+                            },
+                            { 
+                                name: "Trueskill", 
+                                purpose: "Rating system",
+                                reason: "Rates agent performance against other agents or human players"
+                            },
+                            { 
+                                name: "Matplotlib", 
+                                purpose: "Performance plots",
+                                reason: "Visualizes win rates, action distributions, and learning curves"
+                            },
+                            { 
+                                name: "Sacred", 
+                                purpose: "Experiment management",
+                                reason: "Ensures reproducibility by tracking all experiment configurations"
+                            },
+                            { 
+                                name: "MLflow", 
+                                purpose: "Model registry",
+                                reason: "Versions different agent checkpoints and their performance metrics"
+                            }
+                        ]
+                    },
+                    {
+                        name: "5. Deployment & Competition",
+                        tools: [
+                            { 
+                                name: "ONNX", 
+                                purpose: "Model optimization",
+                                reason: "Optimizes models for low-latency inference in real-time games"
+                            },
+                            { 
+                                name: "WebAssembly", 
+                                purpose: "Browser deployment",
+                                reason: "Enables running agents directly in web browsers for online play"
+                            },
+                            { 
+                                name: "gRPC", 
+                                purpose: "Game server API",
+                                reason: "Provides low-latency communication between game server and agent"
+                            },
+                            { 
+                                name: "Gradio", 
+                                purpose: "Demo interface",
+                                reason: "Creates web interfaces for humans to play against the agent"
+                            },
+                            { 
+                                name: "FastAPI", 
+                                purpose: "REST endpoints",
+                                reason: "Exposes agent as an API for integration with game platforms"
+                            }
+                        ]
+                    }
+                ]
+            },
+            "creative-agent": {
+                title: "Creative Content Agent",
+                phases: [
+                    {
+                        name: "1. Foundation Models",
+                        tools: [
+                            { 
+                                name: "Stable Diffusion", 
+                                purpose: "Image generation",
+                                reason: "Open-source model for generating high-quality images from text prompts"
+                            },
+                            { 
+                                name: "DALL-E API", 
+                                purpose: "Commercial image gen",
+                                reason: "High-quality image generation with better prompt adherence and safety filters"
+                            },
+                            { 
+                                name: "GPT-4", 
+                                purpose: "Text generation",
+                                reason: "State-of-the-art language model for creative writing and ideation"
+                            },
+                            { 
+                                name: "MusicGen", 
+                                purpose: "Music generation",
+                                reason: "Generates original music from text descriptions or style prompts"
+                            },
+                            { 
+                                name: "Whisper", 
+                                purpose: "Audio transcription",
+                                reason: "Converts speech to text for multimedia content creation"
+                            }
+                        ]
+                    },
+                    {
+                        name: "2. Content Pipeline",
+                        tools: [
+                            { 
+                                name: "LangChain", 
+                                purpose: "Agent orchestration",
+                                reason: "Chains together different models and tools for complex creative workflows"
+                            },
+                            { 
+                                name: "ComfyUI", 
+                                purpose: "Visual workflow",
+                                reason: "Node-based interface for complex image generation pipelines"
+                            },
+                            { 
+                                name: "FFmpeg", 
+                                purpose: "Media processing",
+                                reason: "Handles video/audio encoding, format conversion, and editing"
+                            },
+                            { 
+                                name: "Pillow", 
+                                purpose: "Image manipulation",
+                                reason: "Python library for image processing, resizing, and composition"
+                            },
+                            { 
+                                name: "Replicate", 
+                                purpose: "Model hosting",
+                                reason: "Runs various AI models without managing infrastructure"
+                            }
+                        ]
+                    },
+                    {
+                        name: "3. Style & Brand Control",
+                        tools: [
+                            { 
+                                name: "LoRA", 
+                                purpose: "Style fine-tuning",
+                                reason: "Trains lightweight adapters for consistent brand style without full model retraining"
+                            },
+                            { 
+                                name: "DreamBooth", 
+                                purpose: "Subject training",
+                                reason: "Teaches models to generate specific subjects or brand mascots consistently"
+                            },
+                            { 
+                                name: "CLIP", 
+                                purpose: "Image-text alignment",
+                                reason: "Ensures generated content matches brand guidelines and descriptions"
+                            },
+                            { 
+                                name: "Textual Inversion", 
+                                purpose: "Concept embedding",
+                                reason: "Embeds specific visual concepts or styles into generation models"
+                            },
+                            { 
+                                name: "ControlNet", 
+                                purpose: "Precise control",
+                                reason: "Adds spatial control to image generation using poses, edges, or layouts"
+                            }
+                        ]
+                    },
+                    {
+                        name: "4. Content Management",
+                        tools: [
+                            { 
+                                name: "Cloudinary", 
+                                purpose: "Media CDN",
+                                reason: "Manages, optimizes, and delivers generated media assets globally"
+                            },
+                            { 
+                                name: "Supabase", 
+                                purpose: "Content database",
+                                reason: "Stores prompts, generated content, and metadata with real-time sync"
+                            },
+                            { 
+                                name: "MinIO", 
+                                purpose: "Object storage",
+                                reason: "Self-hosted S3-compatible storage for large media files"
+                            },
+                            { 
+                                name: "Elasticsearch", 
+                                purpose: "Content search",
+                                reason: "Enables searching through generated content by tags, style, or similarity"
+                            },
+                            { 
+                                name: "Airtable API", 
+                                purpose: "Content calendar",
+                                reason: "Manages content production schedules and approval workflows"
+                            }
+                        ]
+                    },
+                    {
+                        name: "5. Distribution & Analytics",
+                        tools: [
+                            { 
+                                name: "Buffer API", 
+                                purpose: "Social scheduling",
+                                reason: "Automates posting generated content across social media platforms"
+                            },
+                            { 
+                                name: "Canva API", 
+                                purpose: "Template integration",
+                                reason: "Integrates AI content into professional design templates"
+                            },
+                            { 
+                                name: "Google Analytics", 
+                                purpose: "Performance tracking",
+                                reason: "Measures engagement and conversion rates of AI-generated content"
+                            },
+                            { 
+                                name: "Streamlit", 
+                                purpose: "Creator dashboard",
+                                reason: "Builds interfaces for content teams to generate and manage assets"
+                            },
+                            { 
+                                name: "Zapier", 
+                                purpose: "Workflow automation",
+                                reason: "Connects creative pipeline to marketing and business tools"
+                            }
+                        ]
+                    }
+                ]
+            },
+            "research-agent": {
+                title: "Scientific Research Agent",
+                phases: [
+                    {
+                        name: "1. Literature Analysis",
+                        tools: [
+                            { 
+                                name: "Semantic Scholar API", 
+                                purpose: "Paper discovery",
+                                reason: "Provides AI-powered search through millions of research papers with citation graphs"
+                            },
+                            { 
+                                name: "PubMed API", 
+                                purpose: "Biomedical literature",
+                                reason: "Access to comprehensive biomedical research database for health sciences"
+                            },
+                            { 
+                                name: "arXiv API", 
+                                purpose: "Preprint access",
+                                reason: "Retrieves latest research before peer review, crucial for fast-moving fields"
+                            },
+                            { 
+                                name: "Zotero", 
+                                purpose: "Reference management",
+                                reason: "Organizes papers, extracts metadata, and manages citations automatically"
+                            },
+                            { 
+                                name: "Grobid", 
+                                purpose: "PDF extraction",
+                                reason: "Extracts structured data from research PDFs including figures and tables"
+                            }
+                        ]
+                    },
+                    {
+                        name: "2. Knowledge Synthesis",
+                        tools: [
+                            { 
+                                name: "LangChain", 
+                                purpose: "Agent framework",
+                                reason: "Orchestrates complex research workflows with memory and tool use"
+                            },
+                            { 
+                                name: "GPT-4/Claude", 
+                                purpose: "Analysis engine",
+                                reason: "Understands complex scientific concepts and generates hypotheses"
+                            },
+                            { 
+                                name: "Neo4j", 
+                                purpose: "Knowledge graph",
+                                reason: "Maps relationships between concepts, papers, and findings"
+                            },
+                            { 
+                                name: "Elasticsearch", 
+                                purpose: "Full-text search",
+                                reason: "Enables complex queries across extracted paper content"
+                            },
+                            { 
+                                name: "spaCy SciSpacy", 
+                                purpose: "Scientific NER",
+                                reason: "Extracts scientific entities like chemicals, diseases, and genes"
+                            }
+                        ]
+                    },
+                    {
+                        name: "3. Experiment Design",
+                        tools: [
+                            { 
+                                name: "DOE Libraries", 
+                                purpose: "Design of experiments",
+                                reason: "Generates optimal experimental designs to test hypotheses efficiently"
+                            },
+                            { 
+                                name: "Power Analysis", 
+                                purpose: "Sample size calc",
+                                reason: "Determines required sample sizes for statistical significance"
+                            },
+                            { 
+                                name: "Jupyter", 
+                                purpose: "Protocol development",
+                                reason: "Documents and shares experimental protocols with code and visualizations"
+                            },
+                            { 
+                                name: "Protocols.io API", 
+                                purpose: "Protocol sharing",
+                                reason: "Accesses and contributes to reproducible research protocols"
+                            },
+                            { 
+                                name: "LabArchives", 
+                                purpose: "Electronic lab notebook",
+                                reason: "Maintains detailed, timestamped records of all research activities"
+                            }
+                        ]
+                    },
+                    {
+                        name: "4. Data Analysis",
+                        tools: [
+                            { 
+                                name: "SciPy", 
+                                purpose: "Statistical analysis",
+                                reason: "Comprehensive scientific computing library for complex analyses"
+                            },
+                            { 
+                                name: "R/Bioconductor", 
+                                purpose: "Bioinformatics",
+                                reason: "Specialized tools for genomics, proteomics, and biological data"
+                            },
+                            { 
+                                name: "Pandas", 
+                                purpose: "Data manipulation",
+                                reason: "Handles complex experimental data with multiple conditions and replicates"
+                            },
+                            { 
+                                name: "Plotly", 
+                                purpose: "Interactive plots",
+                                reason: "Creates publication-quality figures with interactive exploration"
+                            },
+                            { 
+                                name: "Snakemake", 
+                                purpose: "Workflow management",
+                                reason: "Ensures reproducible analysis pipelines from raw data to results"
+                            }
+                        ]
+                    },
+                    {
+                        name: "5. Publication & Collaboration",
+                        tools: [
+                            { 
+                                name: "Overleaf API", 
+                                purpose: "Paper writing",
+                                reason: "Collaborative LaTeX editing for professional manuscript preparation"
+                            },
+                            { 
+                                name: "BioRender", 
+                                purpose: "Scientific figures",
+                                reason: "Creates professional scientific illustrations and diagrams"
+                            },
+                            { 
+                                name: "GitHub", 
+                                purpose: "Code sharing",
+                                reason: "Shares analysis code and data for reproducible research"
+                            },
+                            { 
+                                name: "Zenodo", 
+                                purpose: "Data archiving",
+                                reason: "Provides DOIs for datasets ensuring long-term accessibility"
+                            },
+                            { 
+                                name: "ORCID API", 
+                                purpose: "Author identification",
+                                reason: "Links research outputs to unique researcher identifiers"
+                            }
+                        ]
+                    }
+                ]
+            }
+        };
+
+        const cards = document.querySelectorAll('.scenario-card');
+        const toolsDisplay = document.getElementById('tools-display');
+
+        cards.forEach(card => {
+            card.addEventListener('click', () => {
+                // Remove active class from all cards
+                cards.forEach(c => c.classList.remove('active'));
+                
+                // Add active class to clicked card
+                card.classList.add('active');
+                
+                // Get scenario data
+                const scenarioKey = card.dataset.scenario;
+                const scenario = scenarios[scenarioKey];
+                
+                // Display tools
+                displayTools(scenario);
+                
+                // Scroll to tools section
+                toolsDisplay.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            });
+        });
+
+        function displayTools(scenario) {
+            let html = `
+                <button class="close-btn" onclick="closeTools()">Close ✕</button>
+                <h2 style="margin-bottom: 30px; clear: both;">${scenario.title}</h2>
+                <div class="timeline">
+                    ${scenario.phases.map((_, i) => `<div class="timeline-step">${i + 1}</div>`).join('')}
+                </div>
+            `;
+
+            scenario.phases.forEach(phase => {
+                html += `
+                    <div class="phase">
+                        <h3>${phase.name}</h3>
+                        <div class="tools-grid">
+                            ${phase.tools.map(tool => `
+                                <div class="tool">
+                                    <span class="expand-hint">hover for why ↓</span>
+                                    <div class="tool-name">${tool.name}</div>
+                                    <div class="tool-purpose">${tool.purpose}</div>
+                                    ${tool.reason ? `<div class="tool-reason">${tool.reason}</div>` : '<div class="tool-reason">Helps accomplish this phase\'s objectives efficiently</div>'}
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                `;
+            });
+
+            toolsDisplay.innerHTML = html;
+            toolsDisplay.classList.add('active');
+        }
+
+        function closeTools() {
+            toolsDisplay.classList.remove('active');
+            cards.forEach(c => c.classList.remove('active'));
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>
